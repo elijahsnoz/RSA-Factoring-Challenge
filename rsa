@@ -1,0 +1,25 @@
+#!/usr/bin/python3
+import sys
+import math
+
+def factorize(num):
+    if num % 2 == 0:
+        return [2, num // 2]
+    for i in range(3, int(math.sqrt(num)) + 1, 2):
+        if num % i == 0:
+            return [num // i, i]
+    return [num, 1]
+
+if __name__ == "__main__":
+    if len(sys.argv) != 2:
+        print("Usage: ./factors <file>")
+        sys.exit(1)
+
+    filename = sys.argv[1]
+
+    with open(filename, 'r') as file:
+        for line in file:
+            num = int(line.strip())
+            factors = factorize(num)
+            print(f"{num}={factors[0]}*{factors[1]}")
+
