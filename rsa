@@ -8,7 +8,7 @@ def factorize(num):
     for i in range(3, int(math.sqrt(num)) + 1, 2):
         if num % i == 0:
             return i, num // i
-    return num, 1
+    return num, 1 if num != 1 else None
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
@@ -21,5 +21,8 @@ if __name__ == "__main__":
         for line in file:
             num = int(line.strip())
             factors = factorize(num)
-            print(f"{num}={factors[0]}*{factors[1]}")
+            if factors[1]:
+                print(f"{num}={factors[0]}*{factors[1]}")
+            else:
+                print(f"{num}={num}")
 
