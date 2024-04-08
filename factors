@@ -1,7 +1,17 @@
-#!/usr/bin/bash
+#!/bin/bash
+
+if [ $# -ne 1 ]; then
+    echo "Usage: $0 <file>"
+    exit 1
+fi
+
 FILE=$1
-while read NUMBERS;
-do
-        factors=($(factor $NUMBERS))
+
+while read -r NUMBERS; do
+    factors=($(factor "$NUMBERS"))
+    if [ "${#factors[@]}" -lt 2 ]; then
+        echo "$NUMBERS=$NUMBERS"
+    else
         echo "$NUMBERS=$(($NUMBERS/${factors[1]}))*${factors[1]}"
-done <$FILE
+    fi
+done < "$FILE"
